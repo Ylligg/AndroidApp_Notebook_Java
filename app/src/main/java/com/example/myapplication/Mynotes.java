@@ -1,5 +1,9 @@
 package com.example.myapplication;
 
+import static android.app.PendingIntent.getActivity;
+
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 
@@ -15,22 +19,37 @@ public class Mynotes extends AppCompatActivity {
     private RecyclerView recyclerView;
     private ArrayList<String> arrayList;
 
+    SharedPreferences sp;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mynotes);
 
         recyclerView = findViewById(R.id.notes);
-        arrayList = new ArrayList<String>();
 
+        // temperary storage of notes: next step is to make a notes object and store it using sqllite
+        arrayList = new ArrayList<String>();
         arrayList.add("Hei1");
         arrayList.add("Hei2");
         arrayList.add("Hei3");
         arrayList.add("Hei");
         arrayList.add("Hei");
+        arrayList.add("Hei");
+        arrayList.add("Hei");
+        arrayList.add("Hei");
+        arrayList.add("Hei");
+        arrayList.add("Hei");
+        arrayList.add("Hei");
+
+        // Stores the amount of notes to be displayed to the main page
+        sp = getSharedPreferences("listcount", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putInt("count",arrayList.size());
+        editor.commit();
 
 
-
+		// makes is possible to view the list of notes
         MyAdapter myAdapter = new MyAdapter(this, arrayList);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(myAdapter);
@@ -38,7 +57,5 @@ public class Mynotes extends AppCompatActivity {
 
     }
 
-    public void additem(View view){
-        arrayList.add("Hei");
-    }
+
 }

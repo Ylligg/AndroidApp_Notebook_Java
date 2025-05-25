@@ -5,4 +5,5 @@
     <color name="card">#FFD85D</color>
     <color name="none">#00FFFFFF</color>
     <color name="red">#F7C80303</color>
+    <color name="background">#FCE8CDBB</color>
 </resources>

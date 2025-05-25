@@ -10,7 +10,7 @@
         android:color="@color/black" />
 
     <padding
-        android:left="15dp"
+        android:left="10dp"
         android:right="20dp"
         />
 

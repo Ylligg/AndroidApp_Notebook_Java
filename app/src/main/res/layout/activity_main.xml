@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bakcgroundtexture"
+    android:background="@color/background"
 
     tools:context=".MainActivity">
 
@@ -25,20 +25,40 @@
     <TextView
         android:layout_width="183dp"
         android:layout_height="56dp"
-        android:text="Notes"
+        android:text="Note"
         android:textAlignment="center"
         android:textColor="#373737"
         android:textSize="34sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/imageView"
         app:layout_constraintEnd_toEndOf="@+id/imageView"
-        app:layout_constraintHorizontal_bias="0.529"
+        app:layout_constraintHorizontal_bias="0.323"
         app:layout_constraintStart_toStartOf="@+id/imageView"
         app:layout_constraintTop_toTopOf="@+id/imageView"
-        app:layout_constraintVertical_bias="0.253" />
+        app:layout_constraintVertical_bias="0.195" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="183dp"
+        android:layout_height="56dp"
+        android:autoText="false"
+        android:contextClickable="false"
+        android:elegantTextHeight="false"
+        android:text="Pad"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textColor="#FCC828"
+        android:textSize="34sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView"
+        app:layout_constraintEnd_toEndOf="@+id/imageView"
+        app:layout_constraintHorizontal_bias="0.704"
+        app:layout_constraintStart_toStartOf="@+id/imageView"
+        app:layout_constraintTop_toTopOf="@+id/imageView"
+        app:layout_constraintVertical_bias="0.351" />
 
     <ImageButton
-        android:id="@+id/button"
+        android:id="@+id/newnoteButton"
         android:layout_width="100dp"
         android:layout_height="103dp"
         android:background="@drawable/newnotebutton"
@@ -68,7 +88,7 @@
         app:srcCompat="@drawable/notebook" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/counttxt"
         android:layout_width="56dp"
         android:layout_height="53dp"
         android:layout_marginBottom="480dp"

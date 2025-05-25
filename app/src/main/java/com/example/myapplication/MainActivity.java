@@ -1,9 +1,13 @@
 package com.example.myapplication;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,7 +21,9 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-  	public ImageButton notatbok;
+  	public ImageButton notebook;
+    public ImageButton newnote;
+    public TextView counttxt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,11 +31,30 @@ public class MainActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
 
-        notatbok = findViewById(R.id.notebookButton);
+        notebook = findViewById(R.id.notebookButton);
+        newnote = findViewById(R.id.newnoteButton);
 
-        notatbok.setOnClickListener(new View.OnClickListener() {
+        counttxt = findViewById(R.id.counttxt);
+
+
+        SharedPreferences sp = getApplicationContext().getSharedPreferences("listcount", Context.MODE_PRIVATE);
+
+        int count = sp.getInt("count", 0);
+
+        String countString = String.valueOf(count);
+
+		counttxt.setText(countString);
+
+        notebook.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                openNotes();
+
+            }
+        });
+
+        newnote.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+               additem();
 
             }
         });
@@ -41,6 +66,12 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, Mynotes.class);
         startActivity(intent);
     }
+
+    public void additem(){
+        Toast.makeText(MainActivity.this, "Lagt inn ny notat", Toast.LENGTH_LONG).show();
+    }
+
+
 
 
 }
