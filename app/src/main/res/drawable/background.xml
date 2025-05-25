@@ -7,6 +7,8 @@
     </item>
     <item
         android:drawable="@drawable/bakcgroundtexture"
-        android:
-        />
+        android:bottom="20dp"
+        android:left="20dp"
+	
+        android:top="20dp"/>
 </layer-list>

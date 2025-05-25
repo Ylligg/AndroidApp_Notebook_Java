@@ -1,7 +1,9 @@
 package com.example.myapplication;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageButton;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,8 +17,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    private RecyclerView recyclerView;
-    private ArrayList<String> arrayList;
+  	public ImageButton notatbok;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +25,21 @@ public class MainActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
 
+        notatbok = findViewById(R.id.notebookButton);
 
+        notatbok.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+               openNotes();
+
+            }
+        });
+
+
+    }
+
+    public void openNotes(){
+        Intent intent = new Intent(this, Mynotes.class);
+        startActivity(intent);
     }
 
 
