@@ -13,12 +13,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder>{
     Context context;
-
-
     ArrayList<String> notes;
 
 
@@ -32,7 +29,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder>{
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.notecard, parent, false);
 
-        return new MyViewHolder(view).linkAdpater(this);
+        return new MyAdapter.MyViewHolder(view);
     }
 
     @Override
