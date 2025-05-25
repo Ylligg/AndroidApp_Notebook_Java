@@ -3,4 +3,6 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="card">#FFD85D</color>
+    <color name="none">#00FFFFFF</color>
+    <color name="red">#F7C80303</color>
 </resources>

@@ -5,48 +5,86 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FCE8CDBB"
+    android:background="@drawable/bakcgroundtexture"
+
     tools:context=".MainActivity">
 
-    <TextView
-        android:layout_width="261dp"
-        android:layout_height="62dp"
-        android:text="Hello World!"
-        android:textAlignment="textStart"
-        android:textSize="30dp"
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="200dp"
+        android:layout_height="186dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.173"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.076" />
+        app:layout_constraintVertical_bias="0.047"
+        app:srcCompat="@drawable/banner" />
 
+    <TextView
+        android:layout_width="183dp"
+        android:layout_height="56dp"
+        android:text="Notes"
+        android:textAlignment="center"
+        android:textColor="#373737"
+        android:textSize="34sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView"
+        app:layout_constraintEnd_toEndOf="@+id/imageView"
+        app:layout_constraintHorizontal_bias="0.529"
+        app:layout_constraintStart_toStartOf="@+id/imageView"
+        app:layout_constraintTop_toTopOf="@+id/imageView"
+        app:layout_constraintVertical_bias="0.253" />
 
     <ImageButton
         android:id="@+id/button"
         android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_height="103dp"
+        android:background="@drawable/newnotebutton"
+        android:scaleType="fitCenter"
         android:shadowColor="@color/black"
         android:src="@drawable/createnote"
-        android:background="@drawable/newnotebutton"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.934"
+        app:layout_constraintHorizontal_bias="0.918"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.119"
-        android:scaleType="fitCenter"
+        app:layout_constraintVertical_bias="0.941"
 
         />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/notes"
-        android:layout_width="317dp"
-        android:layout_height="506dp"
+    <ImageButton
+        android:id="@+id/imageButton"
+        android:layout_width="205dp"
+        android:layout_height="180dp"
+        android:background="@color/none"
+        android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.509"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.786" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        app:layout_constraintVertical_bias="0.28"
+        app:srcCompat="@drawable/notebook" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="56dp"
+        android:layout_height="53dp"
+        android:layout_marginBottom="144dp"
+        android:alpha="1"
+        android:background="@drawable/notecount"
+        android:text="1"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textColor="#FFFFFF"
+        android:textDirection="firstStrong"
+        android:textSize="34sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/imageButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.689"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
