@@ -22,7 +22,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
   	public ImageButton notebook;
-    public ImageButton newnote;
+
     public TextView counttxt;
 
     @Override
@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         notebook = findViewById(R.id.notebookButton);
-        newnote = findViewById(R.id.newnoteButton);
+
 
         counttxt = findViewById(R.id.counttxt);
 
@@ -52,12 +52,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        newnote.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-               additem();
 
-            }
-        });
 
 
     }
@@ -67,9 +62,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void additem(){
-        Toast.makeText(MainActivity.this, "Lagt inn ny notat", Toast.LENGTH_LONG).show();
-    }
+
 
 
 

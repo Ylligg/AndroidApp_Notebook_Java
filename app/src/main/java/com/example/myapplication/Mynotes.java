@@ -6,6 +6,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageButton;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,6 +21,8 @@ public class Mynotes extends AppCompatActivity {
     private RecyclerView recyclerView;
     private ArrayList<String> arrayList;
 
+    public ImageButton newnote;
+
     SharedPreferences sp;
 
     @Override
@@ -27,6 +31,8 @@ public class Mynotes extends AppCompatActivity {
         setContentView(R.layout.mynotes);
 
         recyclerView = findViewById(R.id.notes);
+
+        newnote = findViewById(R.id.newnoteButton);
 
         // temperary storage of notes: next step is to make a notes object and store it using sqllite
         arrayList = new ArrayList<String>();
@@ -46,7 +52,15 @@ public class Mynotes extends AppCompatActivity {
         sp = getSharedPreferences("listcount", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
         editor.putInt("count",arrayList.size());
-        editor.commit();
+        editor.apply();
+
+
+        newnote.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                addNote();
+
+            }
+        });
 
 
 		// makes is possible to view the list of notes
@@ -55,6 +69,10 @@ public class Mynotes extends AppCompatActivity {
         recyclerView.setAdapter(myAdapter);
 
 
+    }
+
+    public void addNote(){
+        Toast.makeText(Mynotes.this, "Lagt inn ny notat", Toast.LENGTH_LONG).show();
     }
 
 

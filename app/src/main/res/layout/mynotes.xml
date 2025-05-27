@@ -14,7 +14,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.786" />
+        app:layout_constraintVertical_bias="0.506" />
 
     <TextView
         android:id="@+id/textView2"
@@ -29,4 +29,37 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.279" />
+
+
+    <ImageButton
+        android:id="@+id/newnoteButton"
+        android:layout_width="328dp"
+        android:layout_height="104dp"
+        android:background="@drawable/newnotebutton"
+        android:padding="20dp"
+        android:scaleType="fitStart"
+        android:shadowColor="@color/black"
+        android:src="@drawable/createnote"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.923" />
+
+    <TextView
+        android:id="@+id/addnewnotetxt"
+        android:layout_width="163dp"
+        android:layout_height="38dp"
+        android:text="Ny notat"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/newnoteButton"
+        app:layout_constraintEnd_toEndOf="@+id/newnoteButton"
+        app:layout_constraintHorizontal_bias="0.584"
+        app:layout_constraintStart_toStartOf="@+id/newnoteButton"
+        app:layout_constraintTop_toTopOf="@+id/newnoteButton"
+        app:layout_constraintVertical_bias="0.461" />
 </androidx.constraintlayout.widget.ConstraintLayout>
