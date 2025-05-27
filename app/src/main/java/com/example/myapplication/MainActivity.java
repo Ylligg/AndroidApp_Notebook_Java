@@ -22,7 +22,6 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
   	public ImageButton notebook;
-
     public TextView counttxt;
 
     @Override
@@ -32,17 +31,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         notebook = findViewById(R.id.notebookButton);
-
-
         counttxt = findViewById(R.id.counttxt);
 
-
         SharedPreferences sp = getApplicationContext().getSharedPreferences("listcount", Context.MODE_PRIVATE);
-
         int count = sp.getInt("count", 0);
 
         String countString = String.valueOf(count);
-
 		counttxt.setText(countString);
 
         notebook.setOnClickListener(new View.OnClickListener() {
@@ -51,9 +45,6 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
-
-
 
     }
 

@@ -2,9 +2,13 @@ package com.example.myapplication;
 
 import static android.app.PendingIntent.getActivity;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
@@ -20,6 +24,8 @@ public class Mynotes extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private ArrayList<String> arrayList;
+
+    Context context;
 
     public ImageButton newnote;
 
@@ -55,11 +61,34 @@ public class Mynotes extends AppCompatActivity {
         editor.apply();
 
 
-        newnote.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                addNote();
+        //Prompt to add info for notes
+        newnote.setOnClickListener(View -> {
 
-            }
+            LayoutInflater inflater = this.getLayoutInflater();
+            View viewNoteBox = inflater.inflate(R.layout.newnote_dialogbox, null);
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(Mynotes.this);
+
+            builder
+                    .setView(viewNoteBox)
+                    .setCancelable(false)
+                    /*
+                    .setPositiveButton("Fullfør", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+
+                        }
+                    })
+                    .setNegativeButton("Avslutt", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+
+                        }
+                    })
+                    */
+
+                    .show();
+
         });
 
 
@@ -69,10 +98,6 @@ public class Mynotes extends AppCompatActivity {
         recyclerView.setAdapter(myAdapter);
 
 
-    }
-
-    public void addNote(){
-        Toast.makeText(Mynotes.this, "Lagt inn ny notat", Toast.LENGTH_LONG).show();
     }
 
 

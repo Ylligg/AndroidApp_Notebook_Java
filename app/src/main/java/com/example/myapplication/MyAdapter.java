@@ -4,10 +4,10 @@ package com.example.myapplication;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -29,7 +29,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder>{
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.notecard, parent, false);
 
-        return new MyAdapter.MyViewHolder(view);
+        return new MyViewHolder(view).linkAdpater(this);
     }
 
     @Override
@@ -43,21 +43,24 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder>{
         return notes.size();
     }
 
-    public static class MyViewHolder extends RecyclerView.ViewHolder{
+    public static class MyViewHolder extends RecyclerView.ViewHolder {
         TextView navn;
+
+        ImageButton newnote;
         private MyAdapter adapter;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            navn = itemView.findViewById(R.id.navn);
 
+            navn = itemView.findViewById(R.id.navn);
 
         }
 
-        public MyViewHolder linkAdpater(MyAdapter adapter){
+        public MyViewHolder linkAdpater(MyAdapter adapter) {
             this.adapter = adapter;
             return this;
         }
+
 
     }
 }
