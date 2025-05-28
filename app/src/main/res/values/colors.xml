@@ -5,5 +5,7 @@
     <color name="card">#FFD85D</color>
     <color name="none">#00FFFFFF</color>
     <color name="red">#F7C80303</color>
+    <color name="green">#F71AB80F</color>
+    <color name="yellow">#F7D8AA04</color>
     <color name="background">#FCE8CDBB</color>
 </resources>

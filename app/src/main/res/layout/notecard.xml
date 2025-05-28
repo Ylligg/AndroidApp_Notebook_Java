@@ -31,7 +31,7 @@
 
 
             <TextView
-                android:id="@+id/navn"
+                android:id="@+id/tittel"
                 android:layout_width="200dp"
                 android:layout_height="40dp"
                 android:text="Ylli Gashi"
@@ -44,6 +44,21 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.145" />
+
+            <TextView
+                android:id="@+id/tag"
+                android:layout_width="61dp"
+                android:layout_height="37dp"
+                android:background="@drawable/note_tag_high"
+                android:text="High"
+                android:textAlignment="center"
+                android:textColor="#000000"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.384"
+                app:layout_constraintStart_toEndOf="@+id/tittel"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.122" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>
