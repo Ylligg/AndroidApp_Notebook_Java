@@ -2,6 +2,8 @@ package com.example.myapplication;
 
 import static android.app.PendingIntent.getActivity;
 
+import static androidx.core.content.ContextCompat.getDrawable;
+
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -52,27 +54,36 @@ public class Mynotes extends AppCompatActivity {
 
         // temperary storage of notes: next step is to make a notes object and store it using sqllite
         arrayList = new ArrayList<Notes>();
-        arrayList.add(new Notes(0, "Hei", "Hei","High"));
+
         arrayList.add(new Notes(0, "Nei", "Hei","Low"));
+        arrayList.add(new Notes(0, "Hei", "Hei","High"));
         arrayList.add(new Notes(0, "Nei", "Hei","Mid"));
+        arrayList.add(new Notes(0, "Nei", "Hei","Mid"));
+        arrayList.add(new Notes(0, "Nei", "Hei","Mid"));
+
+
 
         LayoutInflater inflater2 = this.getLayoutInflater();
         View viewTag = inflater2.inflate(R.layout.notecard, null);
-
         tagbutton = viewTag.findViewById(R.id.tag);
 
-        for(Notes i : arrayList) {
-            System.out.println(i.tag);
-            System.out.println(tagbutton.getBackground());
-            if(i.tag.equals("High")){
-                tagbutton.setBackground(getDrawable(R.drawable.note_tag_high));
-            } else if (i.tag.equals("Mid")) {
-                tagbutton.setBackground(getDrawable(R.drawable.note_tag_mid));
-            }
-            else {
-                tagbutton.setBackground(getDrawable(R.drawable.note_tag_low));
+        /*
+        for(Notes i : arrayList){
+            if(i != null) {
+
+                if (i.tag.equals("High")) {
+                    tagbutton.setBackground(getDrawable(R.drawable.note_tag_high));
+                } else if (i.tag.equals("Mid")) {
+                    tagbutton.setBackground(getDrawable(R.drawable.note_tag_mid));
+                } else {
+                    tagbutton.setBackground(getDrawable(R.drawable.note_tag_low));
+                }
+
+
             }
         }
+
+         */
 
 
 
@@ -146,7 +157,6 @@ public class Mynotes extends AppCompatActivity {
 
             builder
                     .setView(viewNoteBox)
-                    .setCancelable(false)
                     /*
                     .setPositiveButton("Fullfør", new DialogInterface.OnClickListener() {
                         @Override
@@ -165,8 +175,6 @@ public class Mynotes extends AppCompatActivity {
                     .show();
 
         });
-
-
 
 
 
