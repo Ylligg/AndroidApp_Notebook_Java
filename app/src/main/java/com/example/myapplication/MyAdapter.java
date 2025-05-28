@@ -40,7 +40,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder>{
     public void onBindViewHolder(@NonNull MyAdapter.MyViewHolder holder, int position) {
         holder.navn.setText(notes.get(position).tittel);
         holder.tag.setText(notes.get(position).tag);
-        System.out.println(holder.tag.getText());
+
         if(holder.tag.getText().equals("High")){
             holder.tag.setBackground(getDrawable(context, R.drawable.note_tag_high));
         } else if (holder.tag.getText().equals("Mid")) {
@@ -49,8 +49,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder>{
         else {
             holder.tag.setBackground(getDrawable(context, R.drawable.note_tag_low));
         }
-
-
     }
 
     @Override

@@ -4,15 +4,19 @@ import static android.app.PendingIntent.getActivity;
 
 import static androidx.core.content.ContextCompat.getDrawable;
 
+import java.util.Collections;
+import java.util.Comparator;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,6 +41,11 @@ public class Mynotes extends AppCompatActivity {
     Button importanceLow;
     Button importanceMid;
     Button importanceHigh;
+
+    EditText notatTxt;
+
+    Button cancelNote;
+    Button makeNote;
     public TextView tagbutton;
 
     int tag;
@@ -49,44 +58,17 @@ public class Mynotes extends AppCompatActivity {
         recyclerView = findViewById(R.id.notes);
         newnote = findViewById(R.id.newnoteButton);
 
-
-
-
         // temperary storage of notes: next step is to make a notes object and store it using sqllite
         arrayList = new ArrayList<Notes>();
 
-        arrayList.add(new Notes(0, "Nei", "Hei","Low"));
-        arrayList.add(new Notes(0, "Hei", "Hei","High"));
-        arrayList.add(new Notes(0, "Nei", "Hei","Mid"));
-        arrayList.add(new Notes(0, "Nei", "Hei","Mid"));
-        arrayList.add(new Notes(0, "Nei", "Hei","Mid"));
+        arrayList.add(new Notes(0, "Nei", "Hei","Low","0"));
+        arrayList.add(new Notes(0, "Hei", "Hei","High","2"));
+        arrayList.add(new Notes(0, "Nei", "Hei","Mid","1"));
+        arrayList.add(new Notes(0, "Nei", "Hei","Mid","1"));
+        arrayList.add(new Notes(0, "Nei", "Hei","Mid","1"));
+        arrayList.add(new Notes(0, "Hei", "Hei","High","2"));
 
-
-
-        LayoutInflater inflater2 = this.getLayoutInflater();
-        View viewTag = inflater2.inflate(R.layout.notecard, null);
-        tagbutton = viewTag.findViewById(R.id.tag);
-
-        /*
-        for(Notes i : arrayList){
-            if(i != null) {
-
-                if (i.tag.equals("High")) {
-                    tagbutton.setBackground(getDrawable(R.drawable.note_tag_high));
-                } else if (i.tag.equals("Mid")) {
-                    tagbutton.setBackground(getDrawable(R.drawable.note_tag_mid));
-                } else {
-                    tagbutton.setBackground(getDrawable(R.drawable.note_tag_low));
-                }
-
-
-            }
-        }
-
-         */
-
-
-
+        Collections.sort(arrayList, new arraySort());
 
         // Stores the amount of notes to be displayed to the main page
         sp = getSharedPreferences("listcount", Context.MODE_PRIVATE);
@@ -102,7 +84,9 @@ public class Mynotes extends AppCompatActivity {
 
             // 0 -> 2 // 0 = low // 1 = mid // 2 = high
             tag =0;
-
+            notatTxt = viewNoteBox.findViewById(R.id.notatTxt);
+            cancelNote = viewNoteBox.findViewById(R.id.cancelnoteButton);
+            makeNote = viewNoteBox.findViewById(R.id.makenoteButton);
 
 
 
@@ -155,6 +139,7 @@ public class Mynotes extends AppCompatActivity {
 
             AlertDialog.Builder builder = new AlertDialog.Builder(Mynotes.this);
 
+
             builder
                     .setView(viewNoteBox)
                     /*
@@ -171,10 +156,30 @@ public class Mynotes extends AppCompatActivity {
                         }
                     })
                     */
-
                     .show();
 
+            makeNote.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    String tagId = String.valueOf(tag);
+                    String tagnavn = "";
+                    if(tagId.equals("High")){
+                        tagnavn = "High";
+                    } else if (tagId.equals("Mid")) {
+                        tagnavn="Mid";
+                    } else {
+                        tagnavn = "Low";
+                    }
+
+                    System.out.println(tagnavn);
+                    arrayList.add(new Notes(0, "Nei", notatTxt.getText().toString(),tagnavn,tagId));
+                    finish();
+                }
+            });
+
         });
+
+
 
 
 
@@ -184,6 +189,14 @@ public class Mynotes extends AppCompatActivity {
         recyclerView.setAdapter(myAdapter);
 
 
+    }
+
+    public class arraySort implements Comparator<Notes>
+    {
+        public int compare(Notes o1, Notes o2) {
+            return o2.tagId.compareTo(o1.tagId);
+
+        }
     }
 
 
