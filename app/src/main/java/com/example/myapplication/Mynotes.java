@@ -1,53 +1,35 @@
 package com.example.myapplication;
 
-import static android.app.PendingIntent.getActivity;
-
-import static androidx.core.content.ContextCompat.getDrawable;
 
 import java.util.Collections;
 import java.util.Comparator;
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import java.util.ArrayList;
 
 public class Mynotes extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private ArrayList<Notes> arrayList;
-
-    Context context;
-
     public ImageButton newnote;
     SharedPreferences sp;
-
     Button importanceLow;
     Button importanceMid;
     Button importanceHigh;
-
-    EditText notatTxt;
-
     Button cancelNote;
     Button makeNote;
-    public TextView tagbutton;
-
+    EditText notatTxt;
     int tag;
 
     @Override
@@ -55,6 +37,7 @@ public class Mynotes extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mynotes);
 
+        //adds ids to elements present in the my notes page
         recyclerView = findViewById(R.id.notes);
         newnote = findViewById(R.id.newnoteButton);
 
@@ -68,6 +51,8 @@ public class Mynotes extends AppCompatActivity {
         arrayList.add(new Notes(0, "Nei", "Hei","Mid","1"));
         arrayList.add(new Notes(0, "Hei", "Hei","High","2"));
 
+
+        // uses collections to sort the data using the tagId in order High -> Low. (Will add options for sorting)
         Collections.sort(arrayList, new arraySort());
 
         // Stores the amount of notes to be displayed to the main page
@@ -83,13 +68,13 @@ public class Mynotes extends AppCompatActivity {
             View viewNoteBox = inflater.inflate(R.layout.newnote_dialogbox, null);
 
             // 0 -> 2 // 0 = low // 1 = mid // 2 = high
-            tag =0;
             notatTxt = viewNoteBox.findViewById(R.id.notatTxt);
             cancelNote = viewNoteBox.findViewById(R.id.cancelnoteButton);
             makeNote = viewNoteBox.findViewById(R.id.makenoteButton);
+            tag =0;
 
 
-
+            // initiating buttons in dialouge prompt
             importanceLow = viewNoteBox.findViewById(R.id.importanceLowButton);
             importanceMid = viewNoteBox.findViewById(R.id.importanceMidButton);
             importanceHigh = viewNoteBox.findViewById(R.id.importanceHighButton);
@@ -100,48 +85,41 @@ public class Mynotes extends AppCompatActivity {
             importanceHigh.setBackgroundColor(getResources().getColor(R.color.black));
 
 
-            // change color for low
+            // change color for low when selected
             importanceLow.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     importanceLow.setBackgroundColor(getResources().getColor(R.color.green));
                     importanceMid.setBackgroundColor(getResources().getColor(R.color.black));
                     importanceHigh.setBackgroundColor(getResources().getColor(R.color.black));
                     tag=0;
-                    System.out.println(tag);
-
                 }
             });
 
-            // change color for mid
+            // change color for mid when selected
             importanceMid.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     importanceLow.setBackgroundColor(getResources().getColor(R.color.black));
                     importanceMid.setBackgroundColor(getResources().getColor(R.color.yellow));
                     importanceHigh.setBackgroundColor(getResources().getColor(R.color.black));
                     tag = 1;
-                    System.out.println(tag);
 
                 }
             });
 
-            // change color for high
+            // change color for high when selected
             importanceHigh.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     importanceLow.setBackgroundColor(getResources().getColor(R.color.black));
                     importanceMid.setBackgroundColor(getResources().getColor(R.color.black));
                     importanceHigh.setBackgroundColor(getResources().getColor(R.color.red));
                     tag=2;
-                    System.out.println(tag);
 
                 }
             });
 
-
+            // shows the prompt box with inputs
             AlertDialog.Builder builder = new AlertDialog.Builder(Mynotes.this);
-
-
-            builder
-                    .setView(viewNoteBox)
+            builder.setView(viewNoteBox)
                     /*
                     .setPositiveButton("Fullfør", new DialogInterface.OnClickListener() {
                         @Override
@@ -158,6 +136,7 @@ public class Mynotes extends AppCompatActivity {
                     */
                     .show();
 
+            // Takes the data from the prompt and creates a new note.
             makeNote.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -180,9 +159,6 @@ public class Mynotes extends AppCompatActivity {
         });
 
 
-
-
-
 		// makes is possible to view the list of notes
         MyAdapter myAdapter = new MyAdapter(this, arrayList);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -191,8 +167,8 @@ public class Mynotes extends AppCompatActivity {
 
     }
 
-    public class arraySort implements Comparator<Notes>
-    {
+    // function that sorts array of notes (will add different methods to sort it)
+    public class arraySort implements Comparator<Notes> {
         public int compare(Notes o1, Notes o2) {
             return o2.tagId.compareTo(o1.tagId);
 

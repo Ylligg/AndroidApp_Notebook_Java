@@ -33,29 +33,25 @@ public class MainActivity extends AppCompatActivity {
         notebook = findViewById(R.id.notebookButton);
         counttxt = findViewById(R.id.counttxt);
 
+        //gets the amount of notes in total to be displayed in the homepage
         SharedPreferences sp = getApplicationContext().getSharedPreferences("listcount", Context.MODE_PRIVATE);
         int count = sp.getInt("count", 0);
-
         String countString = String.valueOf(count);
 		counttxt.setText(countString);
 
+
+        // goes to Mynotes page
         notebook.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                openNotes();
-
             }
         });
 
     }
-
+    //Transfer to another page
     public void openNotes(){
         Intent intent = new Intent(this, Mynotes.class);
         startActivity(intent);
     }
-
-
-
-
-
 
 }
