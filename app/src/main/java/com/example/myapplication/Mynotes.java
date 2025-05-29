@@ -21,7 +21,6 @@ import java.util.ArrayList;
 public class Mynotes extends AppCompatActivity {
 
     private RecyclerView recyclerView;
-    private ArrayList<Notes> arrayList;
     public ImageButton newnote;
     SharedPreferences sp;
     Button importanceLow;
@@ -30,6 +29,9 @@ public class Mynotes extends AppCompatActivity {
     Button cancelNote;
     Button makeNote;
     EditText notatTxt;
+
+    public Data_Notes dataKilde;
+    private ArrayList<Notes> notesList;
     int tag;
 
     @Override
@@ -42,23 +44,19 @@ public class Mynotes extends AppCompatActivity {
         newnote = findViewById(R.id.newnoteButton);
 
         // temperary storage of notes: next step is to make a notes object and store it using sqllite
-        arrayList = new ArrayList<Notes>();
+        dataKilde = new Data_Notes(this);
+        dataKilde.open();
+        notesList = dataKilde.finnAlleVenner();
 
-        arrayList.add(new Notes(0, "Nei", "Hei","Low","0"));
-        arrayList.add(new Notes(0, "Hei", "Hei","High","2"));
-        arrayList.add(new Notes(0, "Nei", "Hei","Mid","1"));
-        arrayList.add(new Notes(0, "Nei", "Hei","Mid","1"));
-        arrayList.add(new Notes(0, "Nei", "Hei","Mid","1"));
-        arrayList.add(new Notes(0, "Hei", "Hei","High","2"));
 
 
         // uses collections to sort the data using the tagId in order High -> Low. (Will add options for sorting)
-        Collections.sort(arrayList, new arraySort());
+        Collections.sort(notesList, new arraySort());
 
         // Stores the amount of notes to be displayed to the main page
         sp = getSharedPreferences("listcount", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
-        editor.putInt("count",arrayList.size());
+        editor.putInt("count",notesList.size());
         editor.apply();
 
         //Prompt to add info for notes
@@ -151,7 +149,7 @@ public class Mynotes extends AppCompatActivity {
                     }
 
                     System.out.println(tagnavn);
-                    arrayList.add(new Notes(0, "Nei", notatTxt.getText().toString(),tagnavn,tagId));
+                    dataKilde.leggInnNotes("Nei", notatTxt.getText().toString(),tagnavn,tagId);
                     finish();
                 }
             });
@@ -160,7 +158,7 @@ public class Mynotes extends AppCompatActivity {
 
 
 		// makes is possible to view the list of notes
-        MyAdapter myAdapter = new MyAdapter(this, arrayList);
+        MyAdapter myAdapter = new MyAdapter(this, notesList);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(myAdapter);
 

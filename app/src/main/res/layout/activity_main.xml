@@ -58,9 +58,6 @@
         app:layout_constraintVertical_bias="0.351" />
 
 
-
-
-
     <ImageButton
         android:id="@+id/notebookButton"
         android:layout_width="205dp"
@@ -71,14 +68,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView"
-        app:layout_constraintVertical_bias="0.271"
+        app:layout_constraintVertical_bias="0.297"
         app:srcCompat="@drawable/notebook" />
 
     <TextView
         android:id="@+id/counttxt"
         android:layout_width="56dp"
         android:layout_height="53dp"
-        android:layout_marginBottom="480dp"
+        android:layout_marginTop="56dp"
         android:alpha="1"
         android:background="@drawable/notecount"
         android:text="1"
@@ -88,11 +85,11 @@
         android:textDirection="firstStrong"
         android:textSize="34sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/notebookButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.665"
+        app:layout_constraintHorizontal_bias="0.684"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.301" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -11,7 +11,8 @@ public class Notes {
     String tagId;
 
     //konstrøkører
-
+    public Notes() {
+    }
     public Notes(long id, String tittel, String notat, String tag, String tagId) {
         this.id = id;
         this.tittel = tittel;
