@@ -2,12 +2,18 @@ package com.example.myapplication;
 
 
 import static androidx.core.content.ContextCompat.getDrawable;
+
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -16,9 +22,12 @@ import java.util.ArrayList;
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder>{
     Context context;
     ArrayList<Notes> notes;
-    public MyAdapter(Context context, ArrayList<Notes> notes){
+
+    Notes_recyclerviewInterface recyclerviewInterface;
+    public MyAdapter(Context context, ArrayList<Notes> notes, Notes_recyclerviewInterface recyclerviewInterface){
         this.context = context;
         this.notes = notes;
+        this.recyclerviewInterface = recyclerviewInterface;
     }
     @NonNull
     @Override
@@ -26,7 +35,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder>{
         //gets the note cards to be displayed in a list on screen
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.notecard, parent, false);
-        return new MyViewHolder(view).linkAdpater(this);
+        return new MyViewHolder(view, recyclerviewInterface).linkAdpater(this);
     }
 
     @Override
@@ -55,10 +64,54 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder>{
         TextView tag;
         private MyAdapter adapter;
 
-        public MyViewHolder(@NonNull View itemView) {
+        Data_Notes dataKilde;
+
+        public MyViewHolder(@NonNull View itemView, Notes_recyclerviewInterface recyclerviewInterface) {
             super(itemView);
             navn = itemView.findViewById(R.id.tittel);
             tag = itemView.findViewById(R.id.tag);
+
+            //swipe
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(recyclerviewInterface != null){
+                        int position = getAdapterPosition();
+
+                        if(position != RecyclerView.NO_POSITION){
+
+                            //Safe guard pop up
+                            AlertDialog alert = new AlertDialog.Builder(adapter.context)
+                                    .setMessage("Slette notat?")
+                                    .setCancelable(false)
+                                    .setPositiveButton("Slett", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialogInterface, int i) {
+                                            dataKilde = new Data_Notes(adapter.context);
+                                            dataKilde.open();
+                                            dataKilde.slettNotat(adapter.notes.get(getAdapterPosition()).getId());
+                                            Toast.makeText(adapter.context, "Notat er slettet", Toast.LENGTH_LONG).show();
+                                            recyclerviewInterface.onItemClick(position);
+                                        }
+                                    })
+                                    .setNegativeButton("Tilbake", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialogInterface, int i) {
+
+                                        }
+                                    })
+
+                                    .show();
+
+                            Button positive = alert.getButton(DialogInterface.BUTTON_POSITIVE);
+
+
+
+
+                        }
+                    }
+                }
+            });
         }
 
         public MyViewHolder linkAdpater(MyAdapter adapter) {

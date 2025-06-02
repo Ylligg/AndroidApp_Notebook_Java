@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -30,6 +31,8 @@ public class MainActivity extends AppCompatActivity {
 
     private MainActivity_viewModel model;
 
+    int count;
+
 
 
     @Override
@@ -37,6 +40,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
+
+
+
 
         notebook = findViewById(R.id.notebookButton);
         counttxt = findViewById(R.id.counttxt);
@@ -46,6 +52,16 @@ public class MainActivity extends AppCompatActivity {
         int count = sp.getInt("count", 0);
         String countString = String.valueOf(count);
         counttxt.setText(countString);
+
+        // adds refresh to the counter
+        final Handler handler = new Handler();
+        final Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                recreate();
+            }
+        };
+        handler.postDelayed(runnable,1100);
 
 
         // goes to Mynotes page
@@ -61,5 +77,8 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, Mynotes.class);
         startActivity(intent);
     }
+
+
+
 
 }

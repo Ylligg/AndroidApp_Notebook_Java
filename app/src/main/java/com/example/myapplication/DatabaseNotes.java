@@ -19,7 +19,7 @@ public class DatabaseNotes extends SQLiteOpenHelper {
     public static final String KOLONNE_NOTE_TAGID = "tagid";
     private static final String CREATE_TABLE_NOTES = "CREATE TABLE " +
             TABELL_NOTES +
-            "(" + KOLONNE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            "(" + KOLONNE_ID + " INTEGER PRIMARY KEY, " +
             KOLONNE_NOTE_TITTEL + " TEXT NOT NULL, " +
             KOLONNE_NOTE_NOTAT + " TEXT NOT NULL," +
             KOLONNE_NOTE_TAG + " TEXT NOT NULL," +

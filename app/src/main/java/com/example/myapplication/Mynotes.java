@@ -7,19 +7,22 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
-public class Mynotes extends AppCompatActivity {
+public class Mynotes extends AppCompatActivity implements Notes_recyclerviewInterface {
 
     private RecyclerView recyclerView;
     public ImageButton newnote;
@@ -30,8 +33,9 @@ public class Mynotes extends AppCompatActivity {
     Button cancelNote;
     Button makeNote;
     EditText notatTxt;
+    EditText titelTxt;
 
-    CardView card;
+    int count;
 
     public Data_Notes dataKilde;
     private ArrayList<Notes> notesList;
@@ -62,40 +66,39 @@ public class Mynotes extends AppCompatActivity {
         editor.putInt("count",notesList.size());
         editor.apply();
 
+        // ********* POP UP Section *********
 
-
-
-
-
-        //Prompt to add info for notes
+        //Prompt to add info for notes (POPUP)
         newnote.setOnClickListener(View -> {
 
             LayoutInflater inflater = this.getLayoutInflater();
             View viewNoteBox = inflater.inflate(R.layout.newnote_dialogbox, null);
 
             // 0 -> 2 // 0 = low // 1 = mid // 2 = high
-            notatTxt = viewNoteBox.findViewById(R.id.notatTxt);
+            titelTxt = viewNoteBox.findViewById(R.id.notetitleInput);
+            notatTxt = viewNoteBox.findViewById(R.id.notatInput);
             cancelNote = viewNoteBox.findViewById(R.id.cancelnoteButton);
             makeNote = viewNoteBox.findViewById(R.id.makenoteButton);
-
 
             // initiating buttons in dialouge prompt
             importanceLow = viewNoteBox.findViewById(R.id.importanceLowButton);
             importanceMid = viewNoteBox.findViewById(R.id.importanceMidButton);
             importanceHigh = viewNoteBox.findViewById(R.id.importanceHighButton);
 
-            //importanceLow.setBackground(getDrawable(R.drawable.newnotebutton));
-            importanceLow.setBackgroundColor(getResources().getColor(R.color.black));
-            importanceMid.setBackgroundColor(getResources().getColor(R.color.black));
-            importanceHigh.setBackgroundColor(getResources().getColor(R.color.black));
-
+            // importanceLow.setBackground(getDrawable(R.drawable.newnotebutton));
+            // importanceHigh.setBackgroundColor(getResources().getColor(R.color.black));
+            importanceLow.setBackground(getDrawable(R.drawable.defualt_priority_button));
+            importanceMid.setBackground(getDrawable(R.drawable.defualt_priority_button));
+            importanceHigh.setBackground(getDrawable(R.drawable.defualt_priority_button));
+            makeNote.setBackground(getDrawable(R.drawable.defualt_priority_button));
+            cancelNote.setBackground(getDrawable(R.drawable.defualt_priority_button));
 
             // change color for low when selected
             importanceLow.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-                    importanceLow.setBackgroundColor(getResources().getColor(R.color.green));
-                    importanceMid.setBackgroundColor(getResources().getColor(R.color.black));
-                    importanceHigh.setBackgroundColor(getResources().getColor(R.color.black));
+                    importanceLow.setBackground(getDrawable(R.drawable.low_priority_button_color));;
+                    importanceMid.setBackground(getDrawable(R.drawable.defualt_priority_button));
+                    importanceHigh.setBackground(getDrawable(R.drawable.defualt_priority_button));
                     tag=0;
                 }
             });
@@ -103,9 +106,9 @@ public class Mynotes extends AppCompatActivity {
             // change color for mid when selected
             importanceMid.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-                    importanceLow.setBackgroundColor(getResources().getColor(R.color.black));
-                    importanceMid.setBackgroundColor(getResources().getColor(R.color.yellow));
-                    importanceHigh.setBackgroundColor(getResources().getColor(R.color.black));
+                    importanceLow.setBackground(getDrawable(R.drawable.defualt_priority_button));
+                    importanceMid.setBackground(getDrawable(R.drawable.mid_priority_button_color));
+                    importanceHigh.setBackground(getDrawable(R.drawable.defualt_priority_button));
                     tag = 1;
 
                 }
@@ -114,12 +117,10 @@ public class Mynotes extends AppCompatActivity {
             // change color for high when selected
             importanceHigh.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-                    importanceLow.setBackgroundColor(getResources().getColor(R.color.black));
-                    importanceMid.setBackgroundColor(getResources().getColor(R.color.black));
-                    importanceHigh.setBackgroundColor(getResources().getColor(R.color.red));
+                    importanceLow.setBackground(getDrawable(R.drawable.defualt_priority_button));
+                    importanceMid.setBackground(getDrawable(R.drawable.defualt_priority_button));
+                    importanceHigh.setBackground(getDrawable(R.drawable.high_priority_button_color));
                     tag=2;
-
-
                 }
             });
 
@@ -130,7 +131,6 @@ public class Mynotes extends AppCompatActivity {
                     .setPositiveButton("Fullfør", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
-
                         }
                     })
                     .setNegativeButton("Avslutt", new DialogInterface.OnClickListener() {
@@ -146,8 +146,8 @@ public class Mynotes extends AppCompatActivity {
             makeNote.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    String tagId = String.valueOf(tag);
 
+                    String tagId = String.valueOf(tag);
                     if(tagId.equals("2")){
                         tagnavn = "High";
                     } else if (tagId.equals("1")) {
@@ -156,22 +156,31 @@ public class Mynotes extends AppCompatActivity {
                         tagnavn = "Low";
                     }
 
-                    System.out.println(tagnavn);
-                    System.out.println();
-                    dataKilde.leggInnNotes("Note", notatTxt.getText().toString(),tagnavn,tagId);
-                    finish();
+                    dataKilde.leggInnNotes(titelTxt.getText().toString(), notatTxt.getText().toString(),tagnavn,tagId);
+                    recreate();
                 }
             });
 
+            cancelNote.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    recreate();
+                }
+            });
         });
 
 		// makes is possible to view the list of notes
-        MyAdapter myAdapter = new MyAdapter(this, notesList);
+        MyAdapter myAdapter = new MyAdapter(this, notesList, this);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(myAdapter);
 
-        card = recyclerView.findViewById(R.id.card);
 
+    }
+
+    // https://www.google.com/search?q=onclick+recyclerview+item+android+java&oq=onclick+recyclerview+item+android+java&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIHCAEQIRigATIHCAIQIRigAdIBCDc3NjRqMGo0qAIAsAIB&sourceid=chrome&ie=UTF-8#fpstate=ive&vld=cid:fe26e79c,vid:7GPUpvcU1FE,st:0
+    @Override
+    public void onItemClick(int position) {
+        recreate();
     }
 
     // function that sorts array of notes (will add different methods to sort it)
@@ -181,6 +190,4 @@ public class Mynotes extends AppCompatActivity {
 
         }
     }
-
-
 }
