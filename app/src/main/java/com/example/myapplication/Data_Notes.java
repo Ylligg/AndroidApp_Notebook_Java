@@ -52,8 +52,8 @@ public class Data_Notes {
         return note;
     }
 
-    // metode som henter alle venner fra db
-    public ArrayList<Notes> finnAlleVenner() {
+    // metode som henter alle notater fra db
+    public ArrayList<Notes> finnAlleNotater() {
         ArrayList<Notes> notes = new ArrayList<>();
         Cursor cursor = database.query(DatabaseNotes.TABELL_NOTES, null,
                 null, null, null, null, null);
@@ -89,5 +89,6 @@ public class Data_Notes {
                             String[]{Long.toString(id)});
 
     }
+
 }
 

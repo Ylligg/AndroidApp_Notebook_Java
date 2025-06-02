@@ -10,10 +10,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -23,6 +27,10 @@ public class MainActivity extends AppCompatActivity {
 
   	public ImageButton notebook;
     public TextView counttxt;
+
+    private MainActivity_viewModel model;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences sp = getApplicationContext().getSharedPreferences("listcount", Context.MODE_PRIVATE);
         int count = sp.getInt("count", 0);
         String countString = String.valueOf(count);
-		counttxt.setText(countString);
+        counttxt.setText(countString);
 
 
         // goes to Mynotes page

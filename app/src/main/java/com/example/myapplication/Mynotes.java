@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
@@ -30,9 +31,12 @@ public class Mynotes extends AppCompatActivity {
     Button makeNote;
     EditText notatTxt;
 
+    CardView card;
+
     public Data_Notes dataKilde;
     private ArrayList<Notes> notesList;
-    int tag;
+    int tag =0;
+    String tagnavn = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,22 +46,26 @@ public class Mynotes extends AppCompatActivity {
         //adds ids to elements present in the my notes page
         recyclerView = findViewById(R.id.notes);
         newnote = findViewById(R.id.newnoteButton);
-
+        
         // temperary storage of notes: next step is to make a notes object and store it using sqllite
         dataKilde = new Data_Notes(this);
         dataKilde.open();
-        notesList = dataKilde.finnAlleVenner();
-
-
+        notesList = dataKilde.finnAlleNotater();
+        System.out.println(notesList);
 
         // uses collections to sort the data using the tagId in order High -> Low. (Will add options for sorting)
-        Collections.sort(notesList, new arraySort());
+        notesList.sort(new arraySort());
 
         // Stores the amount of notes to be displayed to the main page
         sp = getSharedPreferences("listcount", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
         editor.putInt("count",notesList.size());
         editor.apply();
+
+
+
+
+
 
         //Prompt to add info for notes
         newnote.setOnClickListener(View -> {
@@ -69,7 +77,6 @@ public class Mynotes extends AppCompatActivity {
             notatTxt = viewNoteBox.findViewById(R.id.notatTxt);
             cancelNote = viewNoteBox.findViewById(R.id.cancelnoteButton);
             makeNote = viewNoteBox.findViewById(R.id.makenoteButton);
-            tag =0;
 
 
             // initiating buttons in dialouge prompt
@@ -112,6 +119,7 @@ public class Mynotes extends AppCompatActivity {
                     importanceHigh.setBackgroundColor(getResources().getColor(R.color.red));
                     tag=2;
 
+
                 }
             });
 
@@ -139,29 +147,30 @@ public class Mynotes extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     String tagId = String.valueOf(tag);
-                    String tagnavn = "";
-                    if(tagId.equals("High")){
+
+                    if(tagId.equals("2")){
                         tagnavn = "High";
-                    } else if (tagId.equals("Mid")) {
+                    } else if (tagId.equals("1")) {
                         tagnavn="Mid";
                     } else {
                         tagnavn = "Low";
                     }
 
                     System.out.println(tagnavn);
-                    dataKilde.leggInnNotes("Nei", notatTxt.getText().toString(),tagnavn,tagId);
+                    System.out.println();
+                    dataKilde.leggInnNotes("Note", notatTxt.getText().toString(),tagnavn,tagId);
                     finish();
                 }
             });
 
         });
 
-
 		// makes is possible to view the list of notes
         MyAdapter myAdapter = new MyAdapter(this, notesList);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(myAdapter);
 
+        card = recyclerView.findViewById(R.id.card);
 
     }
 
