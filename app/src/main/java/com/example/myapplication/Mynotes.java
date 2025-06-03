@@ -21,6 +21,7 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Mynotes extends AppCompatActivity implements Notes_recyclerviewInterface {
 
@@ -196,18 +197,62 @@ public class Mynotes extends AppCompatActivity implements Notes_recyclerviewInte
                 Toast.makeText(Mynotes.this, "Alphabetical Order", Toast.LENGTH_SHORT).show();
 
             }
-
+            // shows low level notes
             if(filtercount == 3){
+                ArrayList<Notes> lowNotes = new ArrayList();
+                for(Notes i : notesList){
+                    if(i.tag.equals("Low")){
+                        lowNotes.add(i);
+                    }
+                }
+                MyAdapter myAdapterLow = new MyAdapter(this, lowNotes, this);
+                recyclerView.setLayoutManager(new LinearLayoutManager(this));
+                recyclerView.setAdapter(myAdapterLow);
+                myAdapterLow.notifyDataSetChanged();
+                Toast.makeText(Mynotes.this, "Low Order", Toast.LENGTH_SHORT).show();
+
+            }
+            // shows only mid level notes
+            if(filtercount == 4){
+                ArrayList<Notes> midNotes = new ArrayList();
+                for(Notes i : notesList){
+                    if(i.tag.equals("Mid")){
+                        midNotes.add(i);
+                    }
+                }
+                MyAdapter myAdapterMid = new MyAdapter(this, midNotes, this);
+                recyclerView.setLayoutManager(new LinearLayoutManager(this));
+                recyclerView.setAdapter(myAdapterMid);
+                myAdapterMid.notifyDataSetChanged();
+                Toast.makeText(Mynotes.this, "Mid Order", Toast.LENGTH_SHORT).show();
+
+            }
+            // shows only high level notes
+            if(filtercount == 5){
+                ArrayList<Notes> highNotes = new ArrayList();
+                for(Notes i : notesList){
+                    if(i.tag.equals("High")){
+                        highNotes.add(i);
+                    }
+                }
+                MyAdapter myAdapterHigh = new MyAdapter(this, highNotes, this);
+                recyclerView.setLayoutManager(new LinearLayoutManager(this));
+                recyclerView.setAdapter(myAdapterHigh);
+                myAdapterHigh.notifyDataSetChanged();
+                Toast.makeText(Mynotes.this, "High Order", Toast.LENGTH_SHORT).show();
+
+            }
+
+            // back to basic
+            if(filtercount == 6){
                 notesList.sort(new arraySortNormal());
+                recyclerView.setAdapter(myAdapter);
                 myAdapter.notifyDataSetChanged();
                 Toast.makeText(Mynotes.this, "Normal Order", Toast.LENGTH_SHORT).show();
                 filtercount=0;
             }
 
         });
-
-
-
     }
 
     // https://www.google.com/search?q=onclick+recyclerview+item+android+java&oq=onclick+recyclerview+item+android+java&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIHCAEQIRigATIHCAIQIRigAdIBCDc3NjRqMGo0qAIAsAIB&sourceid=chrome&ie=UTF-8#fpstate=ive&vld=cid:fe26e79c,vid:7GPUpvcU1FE,st:0
@@ -220,21 +265,18 @@ public class Mynotes extends AppCompatActivity implements Notes_recyclerviewInte
     public class arraySortNormal implements Comparator<Notes> {
         public int compare(Notes o1, Notes o2) {
             return o2.tagId.compareTo(o1.tagId);
-
         }
     }
 
     public class arraySortReverse implements Comparator<Notes> {
         public int compare(Notes o1, Notes o2) {
             return o1.tagId.compareTo(o2.tagId);
-
         }
     }
 
     public class arraySortAlphabetical implements Comparator<Notes> {
         public int compare(Notes o1, Notes o2) {
             return o1.tag.compareTo(o2.tag);
-
         }
     }
 }
