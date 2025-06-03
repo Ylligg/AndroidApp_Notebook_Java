@@ -62,4 +62,18 @@
         app:layout_constraintStart_toStartOf="@+id/newnoteButton"
         app:layout_constraintTop_toTopOf="@+id/newnoteButton"
         app:layout_constraintVertical_bias="0.461" />
+
+    <ImageButton
+        android:id="@+id/filterButton"
+        android:layout_width="56dp"
+        android:layout_height="51dp"
+        android:background="@drawable/defualt_priority_button"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toTopOf="@+id/notes"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.819"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textView2"
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@drawable/filter" />
 </androidx.constraintlayout.widget.ConstraintLayout>
