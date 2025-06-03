@@ -34,12 +34,11 @@ public class Mynotes extends AppCompatActivity implements Notes_recyclerviewInte
     Button makeNote;
     EditText notatTxt;
     EditText titelTxt;
-
-    int count;
-
+    ImageButton filterButton;
     public Data_Notes dataKilde;
     private ArrayList<Notes> notesList;
     int tag =0;
+    int filtercount;
     String tagnavn = "";
 
     @Override
@@ -50,6 +49,8 @@ public class Mynotes extends AppCompatActivity implements Notes_recyclerviewInte
         //adds ids to elements present in the my notes page
         recyclerView = findViewById(R.id.notes);
         newnote = findViewById(R.id.newnoteButton);
+
+        filterButton = findViewById(R.id.filterButton);
         
         // temperary storage of notes: next step is to make a notes object and store it using sqllite
         dataKilde = new Data_Notes(this);
@@ -57,8 +58,8 @@ public class Mynotes extends AppCompatActivity implements Notes_recyclerviewInte
         notesList = dataKilde.finnAlleNotater();
         System.out.println(notesList);
 
-        // uses collections to sort the data using the tagId in order High -> Low. (Will add options for sorting)
-        notesList.sort(new arraySort());
+        // uses collections to sort the data using the tagId in order High -> Low. (there is options to change sorting method)
+        notesList.sort(new arraySortNormal());
 
         // Stores the amount of notes to be displayed to the main page
         sp = getSharedPreferences("listcount", Context.MODE_PRIVATE);
@@ -157,6 +158,8 @@ public class Mynotes extends AppCompatActivity implements Notes_recyclerviewInte
                     }
 
                     dataKilde.leggInnNotes(titelTxt.getText().toString(), notatTxt.getText().toString(),tagnavn,tagId);
+                    Toast.makeText(Mynotes.this, "Notat er opprettet", Toast.LENGTH_LONG).show();
+
                     recreate();
                 }
             });
@@ -169,10 +172,40 @@ public class Mynotes extends AppCompatActivity implements Notes_recyclerviewInte
             });
         });
 
+
+
+
 		// makes is possible to view the list of notes
         MyAdapter myAdapter = new MyAdapter(this, notesList, this);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(myAdapter);
+
+        filtercount=0;
+        filterButton.setOnClickListener(View -> {
+            filtercount++;
+            if(filtercount == 1){
+                notesList.sort(new arraySortReverse());
+                myAdapter.notifyDataSetChanged();
+                Toast.makeText(Mynotes.this, "Reverse Order", Toast.LENGTH_SHORT).show();
+
+            }
+
+            if(filtercount == 2){
+                notesList.sort(new arraySortAlphabetical());
+                myAdapter.notifyDataSetChanged();
+                Toast.makeText(Mynotes.this, "Alphabetical Order", Toast.LENGTH_SHORT).show();
+
+            }
+
+            if(filtercount == 3){
+                notesList.sort(new arraySortNormal());
+                myAdapter.notifyDataSetChanged();
+                Toast.makeText(Mynotes.this, "Normal Order", Toast.LENGTH_SHORT).show();
+                filtercount=0;
+            }
+
+        });
+
 
 
     }
@@ -184,9 +217,23 @@ public class Mynotes extends AppCompatActivity implements Notes_recyclerviewInte
     }
 
     // function that sorts array of notes (will add different methods to sort it)
-    public class arraySort implements Comparator<Notes> {
+    public class arraySortNormal implements Comparator<Notes> {
         public int compare(Notes o1, Notes o2) {
             return o2.tagId.compareTo(o1.tagId);
+
+        }
+    }
+
+    public class arraySortReverse implements Comparator<Notes> {
+        public int compare(Notes o1, Notes o2) {
+            return o1.tagId.compareTo(o2.tagId);
+
+        }
+    }
+
+    public class arraySortAlphabetical implements Comparator<Notes> {
+        public int compare(Notes o1, Notes o2) {
+            return o1.tag.compareTo(o2.tag);
 
         }
     }

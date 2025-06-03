@@ -80,6 +80,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder>{
 
                         if(position != RecyclerView.NO_POSITION){
 
+
                             //Safe guard pop up
                             AlertDialog alert = new AlertDialog.Builder(adapter.context)
                                     .setMessage("Slette notat?")
@@ -103,7 +104,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder>{
 
                                     .show();
 
-                            Button positive = alert.getButton(DialogInterface.BUTTON_POSITIVE);
+                            // background for the safe guard button
+                            // Button positive = alert.getButton(DialogInterface.BUTTON_POSITIVE);
+                            // positive.setBackground(getDrawable(adapter.context,R.drawable.defualt_priority_button));
 
 
 
