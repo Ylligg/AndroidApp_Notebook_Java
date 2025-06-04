@@ -1,0 +1,1 @@
+This is a notebook app that allows users to create, view, update, and delete notes, each labeled with a priority tag. The app includes several useful features such as sorting notes by priority and implementing gesture controls for deleting items. It’s designed to provide a smooth and intuitive user experience for managing personal notes efficiently.
