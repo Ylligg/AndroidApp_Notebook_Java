@@ -8,4 +8,5 @@
     <color name="green">#1AB80F</color>
     <color name="yellow">#F7D8AA04</color>
     <color name="background">#FCE8CDBB</color>
+    <color name="updatebutton">#FC6EFAF8</color>
 </resources>
