@@ -16,8 +16,10 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
@@ -38,6 +40,9 @@ public class Mynotes extends AppCompatActivity implements Notes_recyclerviewInte
     ImageButton filterButton;
     public Data_Notes dataKilde;
     private ArrayList<Notes> notesList;
+
+    ItemTouchHelper itemTouchHelper;
+
     int tag =0;
     int filtercount;
     String tagnavn = "";
@@ -67,6 +72,8 @@ public class Mynotes extends AppCompatActivity implements Notes_recyclerviewInte
         SharedPreferences.Editor editor = sp.edit();
         editor.putInt("count",notesList.size());
         editor.apply();
+
+
 
         // ********* POP UP Section *********
 
@@ -144,6 +151,8 @@ public class Mynotes extends AppCompatActivity implements Notes_recyclerviewInte
                     */
                     .show();
 
+
+
             // Takes the data from the prompt and creates a new note.
             makeNote.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -174,10 +183,24 @@ public class Mynotes extends AppCompatActivity implements Notes_recyclerviewInte
         });
 
 
+        ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+
+            }
+        };
+
+        itemTouchHelper = new ItemTouchHelper(simpleCallback);
+        itemTouchHelper.attachToRecyclerView(recyclerView);
 
 
 		// makes is possible to view the list of notes
-        MyAdapter myAdapter = new MyAdapter(this, notesList, this);
+        MyAdapter myAdapter = new MyAdapter(this, notesList,this);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(myAdapter);
 

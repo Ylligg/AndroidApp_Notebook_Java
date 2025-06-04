@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -66,12 +67,15 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder>{
 
         Data_Notes dataKilde;
 
+
+
         public MyViewHolder(@NonNull View itemView, Notes_recyclerviewInterface recyclerviewInterface) {
             super(itemView);
             navn = itemView.findViewById(R.id.tittel);
             tag = itemView.findViewById(R.id.tag);
 
-            //swipe
+
+
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
