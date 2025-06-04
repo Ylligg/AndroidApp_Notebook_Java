@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/card"
+    tools:context=".ShowNotes">
+
+    <TextView
+        android:id="@+id/NoteNote"
+        android:layout_width="93dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="100dp"
+        android:text="Note:"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.078"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/TittelNote"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/TagNote"
+        android:layout_width="167dp"
+        android:layout_height="45dp"
+        android:text="TextView"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.698"
+        app:layout_constraintStart_toEndOf="@+id/TittelNote"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.119" />
+
+    <TextView
+        android:id="@+id/TittelNote"
+        android:layout_width="88dp"
+        android:layout_height="51dp"
+        android:text="Title:"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.077"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.135" />
+
+    <EditText
+        android:id="@+id/NoteNotetxt"
+        android:layout_width="342dp"
+        android:layout_height="392dp"
+        android:layout_marginTop="312dp"
+        android:background="@drawable/textfield_background"
+        android:ems="10"
+        android:gravity="start|top"
+        android:inputType="textMultiLine"
+
+        android:textColor="#000000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.492"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/TittelNotetxt"
+        android:layout_width="341dp"
+        android:layout_height="58dp"
+        android:background="@drawable/textfield_background"
+        android:ems="10"
+        android:inputType="text"
+        android:text="Name"
+        android:textColor="#000000"
+        app:layout_constraintBottom_toTopOf="@+id/NoteNote"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.485"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/TittelNote"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+        android:id="@+id/NoteUpdateButton"
+        android:layout_width="130dp"
+        android:layout_height="74dp"
+        android:background="@drawable/defualt_priority_button"
+        android:text="Update note"
+        android:textColor="#000000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.839"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/NoteNotetxt"
+        app:layout_constraintVertical_bias="0.503" />
+</androidx.constraintlayout.widget.ConstraintLayout>

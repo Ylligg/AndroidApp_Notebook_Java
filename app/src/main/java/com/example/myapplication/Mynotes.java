@@ -309,11 +309,13 @@ public class Mynotes extends AppCompatActivity implements Notes_recyclerviewInte
     // https://www.google.com/search?q=onclick+recyclerview+item+android+java&oq=onclick+recyclerview+item+android+java&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIHCAEQIRigATIHCAIQIRigAdIBCDc3NjRqMGo0qAIAsAIB&sourceid=chrome&ie=UTF-8#fpstate=ive&vld=cid:fe26e79c,vid:7GPUpvcU1FE,st:0
     @Override
     public void onItemClick(int position) {
-        Intent intent = new Intent(Mynotes.this, ShowNotes.class);
-        intent.putExtra("Tittel", notesList.get(position).getTittel());
-        intent.putExtra("Notat", notesList.get(position).getNotat());
-        intent.putExtra("Tag", notesList.get(position).getTag());
-        startActivity(intent);
+        Intent intent2 = new Intent(this, ShowNotes.class);
+        intent2.putExtra("ID", notesList.get(position).getId());
+        intent2.putExtra("Tittel", notesList.get(position).getTittel());
+        intent2.putExtra("Notat", notesList.get(position).getNotat());
+        intent2.putExtra("Tag", notesList.get(position).getTag());
+        intent2.putExtra("TagID", notesList.get(position).getTagId());
+        startActivity(intent2);
     }
 
     // function that sorts array of notes (will add different methods to sort it)

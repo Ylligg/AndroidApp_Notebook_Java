@@ -65,9 +65,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder>{
         TextView tag;
         private MyAdapter adapter;
 
-        Data_Notes dataKilde;
-
-
 
         public MyViewHolder(@NonNull View itemView, Notes_recyclerviewInterface recyclerviewInterface) {
             super(itemView);
@@ -85,10 +82,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder>{
                         if(position != RecyclerView.NO_POSITION){
 
                             recyclerviewInterface.onItemClick(position);
-
-                            // background for the safe guard button
-                            // Button positive = alert.getButton(DialogInterface.BUTTON_POSITIVE);
-                            // positive.setBackground(getDrawable(adapter.context,R.drawable.defualt_priority_button));
 
                         }
                     }

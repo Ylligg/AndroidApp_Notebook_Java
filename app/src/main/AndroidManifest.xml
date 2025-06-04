@@ -25,6 +25,10 @@
             android:name=".Mynotes"
             android:exported="false" />
 
+        <activity
+            android:name=".ShowNotes"
+            android:exported="false" />
+
     </application>
 
 </manifest>
