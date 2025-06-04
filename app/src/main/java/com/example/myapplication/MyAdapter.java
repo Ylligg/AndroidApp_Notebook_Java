@@ -84,36 +84,11 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder>{
 
                         if(position != RecyclerView.NO_POSITION){
 
-
-                            //Safe guard pop up
-                            AlertDialog alert = new AlertDialog.Builder(adapter.context)
-                                    .setMessage("Slette notat?")
-                                    .setCancelable(false)
-                                    .setPositiveButton("Slett", new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialogInterface, int i) {
-                                            dataKilde = new Data_Notes(adapter.context);
-                                            dataKilde.open();
-                                            dataKilde.slettNotat(adapter.notes.get(getAdapterPosition()).getId());
-                                            Toast.makeText(adapter.context, "Notat er slettet", Toast.LENGTH_LONG).show();
-                                            recyclerviewInterface.onItemClick(position);
-                                        }
-                                    })
-                                    .setNegativeButton("Tilbake", new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialogInterface, int i) {
-
-                                        }
-                                    })
-
-                                    .show();
+                            recyclerviewInterface.onItemClick(position);
 
                             // background for the safe guard button
                             // Button positive = alert.getButton(DialogInterface.BUTTON_POSITIVE);
                             // positive.setBackground(getDrawable(adapter.context,R.drawable.defualt_priority_button));
-
-
-
 
                         }
                     }

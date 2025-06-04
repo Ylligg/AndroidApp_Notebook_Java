@@ -5,6 +5,8 @@ import java.util.Collections;
 import java.util.Comparator;
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
@@ -42,6 +44,8 @@ public class Mynotes extends AppCompatActivity implements Notes_recyclerviewInte
     private ArrayList<Notes> notesList;
 
     ItemTouchHelper itemTouchHelper;
+
+    MyAdapter myAdapter;
 
     int tag =0;
     int filtercount;
@@ -183,6 +187,11 @@ public class Mynotes extends AppCompatActivity implements Notes_recyclerviewInte
         });
 
 
+		// makes is possible to view the list of notes
+        myAdapter = new MyAdapter(this, notesList,this);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(myAdapter);
+
         ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
             @Override
             public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
@@ -192,17 +201,34 @@ public class Mynotes extends AppCompatActivity implements Notes_recyclerviewInte
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
 
-            }
+                AlertDialog alert = new AlertDialog.Builder(Mynotes.this)
+                        .setMessage("Slette notat?")
+                        .setCancelable(false)
+                        .setPositiveButton("Slett", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dataKilde = new Data_Notes(Mynotes.this);
+                                dataKilde.open();
+                                dataKilde.slettNotat(Mynotes.this.notesList.get(viewHolder.getAdapterPosition()).getId());
+                                Toast.makeText(Mynotes.this, "Notat er slettet", Toast.LENGTH_LONG).show();
+                                myAdapter.notifyDataSetChanged();
+                                recreate();
+                            }
+                        })
+                        .setNegativeButton("Tilbake", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                recreate();
+                            }
+                        })
+
+                        .show();
+
+                 }
         };
 
         itemTouchHelper = new ItemTouchHelper(simpleCallback);
         itemTouchHelper.attachToRecyclerView(recyclerView);
-
-
-		// makes is possible to view the list of notes
-        MyAdapter myAdapter = new MyAdapter(this, notesList,this);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(myAdapter);
 
         filtercount=0;
         filterButton.setOnClickListener(View -> {
@@ -278,10 +304,16 @@ public class Mynotes extends AppCompatActivity implements Notes_recyclerviewInte
         });
     }
 
+
+
     // https://www.google.com/search?q=onclick+recyclerview+item+android+java&oq=onclick+recyclerview+item+android+java&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIHCAEQIRigATIHCAIQIRigAdIBCDc3NjRqMGo0qAIAsAIB&sourceid=chrome&ie=UTF-8#fpstate=ive&vld=cid:fe26e79c,vid:7GPUpvcU1FE,st:0
     @Override
     public void onItemClick(int position) {
-        recreate();
+        Intent intent = new Intent(Mynotes.this, ShowNotes.class);
+        intent.putExtra("Tittel", notesList.get(position).getTittel());
+        intent.putExtra("Notat", notesList.get(position).getNotat());
+        intent.putExtra("Tag", notesList.get(position).getTag());
+        startActivity(intent);
     }
 
     // function that sorts array of notes (will add different methods to sort it)

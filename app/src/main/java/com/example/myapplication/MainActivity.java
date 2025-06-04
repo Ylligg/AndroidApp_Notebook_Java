@@ -41,9 +41,6 @@ public class MainActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
 
-
-
-
         notebook = findViewById(R.id.notebookButton);
         counttxt = findViewById(R.id.counttxt);
 
@@ -61,8 +58,8 @@ public class MainActivity extends AppCompatActivity {
                 recreate();
             }
         };
-        handler.postDelayed(runnable,1100);
 
+        handler.postDelayed(runnable,1200);
 
         // goes to Mynotes page
         notebook.setOnClickListener(new View.OnClickListener() {
@@ -77,8 +74,4 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, Mynotes.class);
         startActivity(intent);
     }
-
-
-
-
 }
